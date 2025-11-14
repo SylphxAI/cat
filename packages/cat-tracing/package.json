@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/cat-tracing",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "description": "W3C Trace Context support for @sylphx/cat logger",
   "type": "module",
   "main": "./dist/index.js",

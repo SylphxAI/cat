@@ -26,3 +26,4 @@ docs/.vitepress/dist
 logs/
 node_modules/
 Thumbs.db
+.turbo
