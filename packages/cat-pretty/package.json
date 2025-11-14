@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/cat-pretty",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Pretty formatter for @sylphx/cat logger",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/cat-http",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "HTTP request/response serializers for @sylphx/cat logger",
   "type": "module",
   "main": "./dist/index.js",
