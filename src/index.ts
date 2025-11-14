@@ -35,6 +35,25 @@ export type { ContextPluginOptions } from "./plugins/context"
 export { ContextPlugin, contextPlugin } from "./plugins/context"
 export type { SamplingPluginOptions } from "./plugins/sampling"
 export { SamplingPlugin, samplingPlugin } from "./plugins/sampling"
+export type { TracingPluginOptions } from "./plugins/tracing"
+export { TracingPlugin, tracingPlugin } from "./plugins/tracing"
+
+// Tracing (W3C Trace Context)
+export type { TraceContext } from "./tracing/context"
+export {
+	createTraceContext,
+	formatTraceparent,
+	formatTracestate,
+	generateSpanId,
+	generateTraceId,
+	isSampled,
+	isValidSpanId,
+	isValidTraceId,
+	parseTraceparent,
+	parseTracestate,
+	setSampled,
+	TraceFlags,
+} from "./tracing/context"
 // Transports
 export { ConsoleTransport, consoleTransport } from "./transports/console"
 export type { FileTransportOptions } from "./transports/file"

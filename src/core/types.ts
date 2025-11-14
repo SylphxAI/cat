@@ -15,6 +15,10 @@ export interface LogEntry {
 	message: string
 	data?: Record<string, unknown>
 	context?: Record<string, unknown>
+	// W3C Trace Context (added in v0.2.0)
+	traceId?: string
+	spanId?: string
+	traceFlags?: number
 }
 
 export interface FormattedLog {
