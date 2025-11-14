@@ -36,9 +36,6 @@
     "url": "https://github.com/SylphxAI/cat",
     "directory": "packages/cat-redaction"
   },
-  "peerDependencies": {
-    "@sylphx/cat": "^0.1.0"
-  },
   "publishConfig": {
     "access": "public"
   }

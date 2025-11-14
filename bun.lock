@@ -20,57 +20,35 @@
     },
     "packages/cat": {
       "name": "@sylphx/cat",
-      "version": "0.2.0",
+      "version": "0.0.0",
     },
     "packages/cat-file": {
       "name": "@sylphx/cat-file",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
     "packages/cat-http": {
       "name": "@sylphx/cat-http",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
     "packages/cat-otlp": {
       "name": "@sylphx/cat-otlp",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
     "packages/cat-pretty": {
       "name": "@sylphx/cat-pretty",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
     "packages/cat-redaction": {
       "name": "@sylphx/cat-redaction",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
     "packages/cat-tail-sampling": {
       "name": "@sylphx/cat-tail-sampling",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-        "@sylphx/cat-tracing": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
     "packages/cat-tracing": {
       "name": "@sylphx/cat-tracing",
-      "version": "0.2.0",
-      "peerDependencies": {
-        "@sylphx/cat": "^0.2.0",
-      },
+      "version": "0.0.0",
     },
   },
   "packages": {

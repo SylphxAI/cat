@@ -5,9 +5,10 @@
 	"description": "Monorepo for @sylphx/cat logger ecosystem",
 	"type": "module",
 	"packageManager": "bun@1.3.2",
-	"workspaces": [
-		"packages/*"
-	],
+	"workspaces": {
+		"packages": ["packages/*"],
+		"nohoist": ["**"]
+	},
 	"scripts": {
 		"build": "turbo run build",
 		"test": "turbo run test",
