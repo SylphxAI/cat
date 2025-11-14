@@ -35,7 +35,7 @@
     "directory": "packages/cat-file"
   },
   "peerDependencies": {
-    "@sylphx/cat": "^0.2.0"
+    "@sylphx/cat": "^0.1.0"
   },
   "publishConfig": {
     "access": "public"
