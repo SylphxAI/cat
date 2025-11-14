@@ -1,0 +1,56 @@
+{
+	"name": "@kylezhu/logger",
+	"version": "0.1.0",
+	"description": "The fastest, lightest, most extensible logger for all JavaScript runtimes",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "bun run build:lib",
+		"build:lib": "bun build src/index.ts --outdir dist --target node --format esm --sourcemap=external && bun run build:types",
+		"build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+		"test": "bun test",
+		"bench": "bun run benchmarks/index.ts",
+		"check": "biome check .",
+		"format": "biome format --write .",
+		"lint": "biome lint .",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "bun run build && changeset publish"
+	},
+	"keywords": [
+		"logger",
+		"logging",
+		"log",
+		"fast",
+		"lightweight",
+		"performance",
+		"bun",
+		"nodejs",
+		"deno",
+		"browser"
+	],
+	"author": "Kyle Zhu",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kylezhu/logger"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.5",
+		"@changesets/cli": "^2.29.7",
+		"@types/bun": "latest",
+		"mitata": "^1.0.34",
+		"typescript": "^5.9.3"
+	}
+}
