@@ -1,4 +1,4 @@
-# @sylphx/logger
+# @sylphx/cat
 
 The **fastest**, **lightest**, and **most extensible** logger for all JavaScript runtimes.
 
@@ -15,17 +15,17 @@ The **fastest**, **lightest**, and **most extensible** logger for all JavaScript
 ## 📦 Installation
 
 ```bash
-bun add @sylphx/logger
+bun add @sylphx/cat
 ```
 
 ```bash
-npm install @sylphx/logger
+npm install @sylphx/cat
 ```
 
 ## 🔥 Quick Start
 
 ```typescript
-import { createLogger, consoleTransport, prettyFormatter } from '@sylphx/logger'
+import { createLogger, consoleTransport, prettyFormatter } from '@sylphx/cat'
 
 const logger = createLogger({
   level: 'info',
@@ -42,7 +42,7 @@ logger.error('Something went wrong', { error: 'ECONNREFUSED' })
 ### Basic Logging
 
 ```typescript
-import { createLogger } from '@sylphx/logger'
+import { createLogger } from '@sylphx/cat'
 
 const logger = createLogger()
 
@@ -82,7 +82,7 @@ import {
   consoleTransport,
   fileTransport,
   jsonFormatter
-} from '@sylphx/logger'
+} from '@sylphx/cat'
 
 const logger = createLogger({
   formatter: jsonFormatter(),
@@ -96,8 +96,8 @@ const logger = createLogger({
 ### Custom Formatters
 
 ```typescript
-import { createLogger } from '@sylphx/logger'
-import type { Formatter, LogEntry } from '@sylphx/logger'
+import { createLogger } from '@sylphx/cat'
+import type { Formatter, LogEntry } from '@sylphx/cat'
 
 class CustomFormatter implements Formatter {
   format(entry: LogEntry): string {
@@ -117,7 +117,7 @@ import {
   createLogger,
   contextPlugin,
   samplingPlugin
-} from '@sylphx/logger'
+} from '@sylphx/cat'
 
 const logger = createLogger({
   plugins: [
@@ -154,7 +154,7 @@ await logger.flush() // Manual flush
 ### JSON Formatter
 
 ```typescript
-import { jsonFormatter } from '@sylphx/logger'
+import { jsonFormatter } from '@sylphx/cat'
 
 const logger = createLogger({
   formatter: jsonFormatter()
@@ -166,7 +166,7 @@ const logger = createLogger({
 ### Pretty Formatter
 
 ```typescript
-import { prettyFormatter } from '@sylphx/logger'
+import { prettyFormatter } from '@sylphx/cat'
 
 const logger = createLogger({
   formatter: prettyFormatter({
@@ -184,7 +184,7 @@ const logger = createLogger({
 ### Console Transport
 
 ```typescript
-import { consoleTransport } from '@sylphx/logger'
+import { consoleTransport } from '@sylphx/cat'
 
 const logger = createLogger({
   transports: [consoleTransport()]
@@ -194,7 +194,7 @@ const logger = createLogger({
 ### File Transport
 
 ```typescript
-import { fileTransport } from '@sylphx/logger'
+import { fileTransport } from '@sylphx/cat'
 
 const logger = createLogger({
   transports: [
@@ -208,7 +208,7 @@ const logger = createLogger({
 ### Stream Transport
 
 ```typescript
-import { streamTransport } from '@sylphx/logger'
+import { streamTransport } from '@sylphx/cat'
 
 const logger = createLogger({
   transports: [
@@ -222,7 +222,7 @@ const logger = createLogger({
 ### Custom Transport
 
 ```typescript
-import type { Transport, LogEntry } from '@sylphx/logger'
+import type { Transport, LogEntry } from '@sylphx/cat'
 
 class HttpTransport implements Transport {
   async log(entry: LogEntry, formatted: string): Promise<void> {
@@ -245,7 +245,7 @@ const logger = createLogger({
 Adds static context to all log entries:
 
 ```typescript
-import { contextPlugin } from '@sylphx/logger'
+import { contextPlugin } from '@sylphx/cat'
 
 const logger = createLogger({
   plugins: [
@@ -262,7 +262,7 @@ const logger = createLogger({
 Reduces log volume by sampling:
 
 ```typescript
-import { samplingPlugin } from '@sylphx/logger'
+import { samplingPlugin } from '@sylphx/cat'
 
 const logger = createLogger({
   plugins: [
@@ -274,7 +274,7 @@ const logger = createLogger({
 ### Custom Plugin
 
 ```typescript
-import type { Plugin, LogEntry } from '@sylphx/logger'
+import type { Plugin, LogEntry } from '@sylphx/cat'
 
 const redactPlugin: Plugin = {
   name: 'redact',
@@ -353,7 +353,7 @@ Existing loggers are either:
 - Not universal (Node.js only)
 - Limited extensibility
 
-**@sylphx/logger** solves all of these:
+**@sylphx/cat** solves all of these:
 - <5KB with zero dependencies
 - Optimized for speed (fast-path filtering, minimal allocations)
 - Works everywhere (Node, Bun, Deno, browsers, edge)
@@ -369,6 +369,6 @@ Contributions welcome! Please read our contributing guidelines first.
 
 ## 🔗 Links
 
-- [GitHub](https://github.com/SylphxAi/logger)
-- [npm](https://www.npmjs.com/package/@sylphx/logger)
-- [Documentation](https://github.com/SylphxAi/logger#readme)
+- [GitHub](https://github.com/SylphxAI/cat)
+- [npm](https://www.npmjs.com/package/@sylphx/cat)
+- [Documentation](https://github.com/SylphxAI/cat#readme)

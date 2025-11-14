@@ -1,4 +1,4 @@
-# Contributing to @sylphx/logger
+# Contributing to @sylphx/cat
 
 Thank you for your interest in contributing! This document provides guidelines and information for contributors.
 
@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This document provides guidelines a
 ### Installation
 
 ```bash
-git clone https://github.com/SylphxAi/logger.git
+git clone https://github.com/SylphxAI/cat.git
 cd logger
 bun install
 ```

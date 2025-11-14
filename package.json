@@ -1,5 +1,5 @@
 {
-	"name": "@sylphx/logger",
+	"name": "@sylphx/cat",
 	"version": "0.1.0",
 	"description": "The fastest, lightest, most extensible logger for all JavaScript runtimes",
 	"type": "module",
@@ -29,6 +29,7 @@
 		"release": "bun run build && changeset publish"
 	},
 	"keywords": [
+		"cat",
 		"logger",
 		"logging",
 		"log",
@@ -44,7 +45,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/SylphxAi/logger"
+		"url": "https://github.com/SylphxAI/cat"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.5",
