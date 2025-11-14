@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of @kylezhu/logger
+- Initial release of @sylphx/logger
 - Core logger implementation with level system (trace, debug, info, warn, error, fatal)
 - Fast-path level filtering for optimal performance
 - JSON formatter for structured logging
@@ -36,4 +36,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JSON formatter: ~169 ns/iter
 - Pretty formatter: ~303 ns/iter
 
-[0.1.0]: https://github.com/kylezhu/logger/releases/tag/v0.1.0
+[0.1.0]: https://github.com/SylphxAi/logger/releases/tag/v0.1.0
