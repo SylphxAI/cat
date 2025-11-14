@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/cat",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The fastest, lightest, most extensible logger for all JavaScript runtimes",
   "type": "module",
   "main": "./dist/index.js",
