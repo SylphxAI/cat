@@ -10,7 +10,7 @@ export class FileTransport implements Transport {
 	private path: string
 	private file: any
 	private writeQueue: string[] = []
-	private writing = false
+	private writePromise: Promise<void> | null = null
 
 	constructor(options: FileTransportOptions) {
 		this.path = options.path
@@ -39,39 +39,48 @@ export class FileTransport implements Transport {
 
 	log(_entry: LogEntry, formatted: string): void {
 		this.writeQueue.push(`${formatted}\n`)
-		if (!this.writing) {
-			this.processQueue()
+		if (!this.writePromise) {
+			this.writePromise = this.processQueue()
 		}
 	}
 
 	private async processQueue(): Promise<void> {
-		if (this.writing || this.writeQueue.length === 0) return
-
-		this.writing = true
-
-		try {
+		// Keep processing while there are items in the queue
+		while (this.writeQueue.length > 0) {
 			const lines = this.writeQueue.splice(0)
 			const content = lines.join("")
 
-			if (typeof Bun !== "undefined") {
-				// Use appendFile for Bun
-				const fs = await import("node:fs/promises")
-				await fs.appendFile(this.path, content)
-			} else if (this.file?.write) {
-				this.file.write(content)
-			}
-		} catch (error) {
-			console.error("Failed to write to log file:", error)
-		} finally {
-			this.writing = false
-			if (this.writeQueue.length > 0) {
-				this.processQueue()
+			try {
+				if (typeof Bun !== "undefined") {
+					// Use appendFile for Bun
+					const fs = await import("node:fs/promises")
+					await fs.appendFile(this.path, content)
+				} else if (this.file?.write) {
+					// For Node.js streams, wrap in promise
+					await new Promise<void>((resolve, reject) => {
+						this.file.write(content, (err: Error | null | undefined) => {
+							if (err) reject(err)
+							else resolve()
+						})
+					})
+				}
+			} catch (error) {
+				console.error("Failed to write to log file:", error)
 			}
 		}
+
+		this.writePromise = null
 	}
 
 	async flush(): Promise<void> {
-		await this.processQueue()
+		// Wait for any pending writes
+		if (this.writePromise) {
+			await this.writePromise
+		}
+		// Process any remaining items
+		if (this.writeQueue.length > 0) {
+			await this.processQueue()
+		}
 	}
 
 	async close(): Promise<void> {

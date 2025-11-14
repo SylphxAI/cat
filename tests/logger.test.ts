@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "bun:test"
+import { beforeEach, describe, expect, test } from "vitest"
 import type { LogEntry, Transport } from "../src/index"
 import { createLogger } from "../src/index"
 

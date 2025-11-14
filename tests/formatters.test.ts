@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test"
+import { describe, expect, test } from "vitest"
 import type { LogEntry } from "../src/index"
 import { jsonFormatter, prettyFormatter } from "../src/index"
 

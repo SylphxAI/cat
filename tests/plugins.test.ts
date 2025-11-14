@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test"
+import { describe, expect, test } from "vitest"
 import type { LogEntry, Transport } from "../src/index"
 import { contextPlugin, createLogger, samplingPlugin } from "../src/index"
 
