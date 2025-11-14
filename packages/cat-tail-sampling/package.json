@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/cat-tail-sampling",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Tail-based sampling plugin for @sylphx/cat logger",
   "type": "module",
   "main": "./dist/index.js",

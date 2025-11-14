@@ -1,6 +1,6 @@
 {
   "name": "@sylphx/cat-file",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "File and stream transports for @sylphx/cat logger",
   "type": "module",
   "main": "./dist/index.js",
