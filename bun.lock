@@ -25,30 +25,52 @@
     "packages/cat-file": {
       "name": "@sylphx/cat-file",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+      },
     },
     "packages/cat-http": {
       "name": "@sylphx/cat-http",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+      },
     },
     "packages/cat-otlp": {
       "name": "@sylphx/cat-otlp",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+      },
     },
     "packages/cat-pretty": {
       "name": "@sylphx/cat-pretty",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+      },
     },
     "packages/cat-redaction": {
       "name": "@sylphx/cat-redaction",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+      },
     },
     "packages/cat-tail-sampling": {
       "name": "@sylphx/cat-tail-sampling",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+        "@sylphx/cat-tracing": "*",
+      },
     },
     "packages/cat-tracing": {
       "name": "@sylphx/cat-tracing",
       "version": "0.0.0",
+      "devDependencies": {
+        "@sylphx/cat": "*",
+      },
     },
   },
   "packages": {

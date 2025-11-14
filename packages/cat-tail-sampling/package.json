@@ -35,6 +35,10 @@
     "url": "https://github.com/SylphxAI/cat",
     "directory": "packages/cat-tail-sampling"
   },
+  "devDependencies": {
+    "@sylphx/cat": "*",
+    "@sylphx/cat-tracing": "*"
+  },
   "publishConfig": {
     "access": "public"
   }

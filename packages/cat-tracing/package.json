@@ -36,6 +36,9 @@
     "url": "https://github.com/SylphxAI/cat",
     "directory": "packages/cat-tracing"
   },
+  "devDependencies": {
+    "@sylphx/cat": "*"
+  },
   "publishConfig": {
     "access": "public"
   }

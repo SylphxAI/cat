@@ -33,6 +33,9 @@
     "url": "https://github.com/SylphxAI/cat",
     "directory": "packages/cat-pretty"
   },
+  "devDependencies": {
+    "@sylphx/cat": "*"
+  },
   "publishConfig": {
     "access": "public"
   }
