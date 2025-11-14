@@ -1,0 +1,43 @@
+{
+  "name": "@sylphx/cat-file",
+  "version": "0.2.0",
+  "description": "File and stream transports for @sylphx/cat logger",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --format esm --sourcemap=external && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "cat",
+    "logger",
+    "file",
+    "stream",
+    "transport"
+  ],
+  "author": "Kyle Zhu",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SylphxAI/cat",
+    "directory": "packages/cat-file"
+  },
+  "peerDependencies": {
+    "@sylphx/cat": "^0.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

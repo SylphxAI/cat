@@ -1,58 +1,27 @@
 {
-	"name": "@sylphx/cat",
-	"version": "0.1.0",
-	"description": "The fastest, lightest, most extensible logger for all JavaScript runtimes",
+	"name": "@sylphx/cat-monorepo",
+	"version": "0.2.0",
+	"private": true,
+	"description": "Monorepo for @sylphx/cat logger ecosystem",
 	"type": "module",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts"
-		}
-	},
-	"files": [
-		"dist"
+	"packageManager": "bun@1.3.2",
+	"workspaces": [
+		"packages/*"
 	],
 	"scripts": {
-		"build": "bun run build:lib",
-		"build:lib": "bun build src/index.ts --outdir dist --target node --format esm --sourcemap=external && bun run build:types",
-		"build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
-		"test": "vitest run",
-		"test:watch": "vitest",
-		"test:ui": "vitest --ui",
-		"test:coverage": "vitest run --coverage",
-		"bench": "vitest bench --run",
-		"bench:watch": "vitest bench",
-		"check": "biome check .",
-		"format": "biome format --write .",
+		"build": "turbo run build",
+		"test": "turbo run test",
+		"test:watch": "turbo run test:watch",
 		"lint": "biome lint .",
+		"format": "biome format --write .",
+		"check": "biome check .",
+		"clean": "turbo run clean && rm -rf node_modules .turbo",
 		"changeset": "changeset",
 		"version": "changeset version",
-		"release": "bun run build && changeset publish",
+		"release": "turbo run build && changeset publish",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
 		"docs:preview": "vitepress preview docs"
-	},
-	"keywords": [
-		"cat",
-		"logger",
-		"logging",
-		"log",
-		"fast",
-		"lightweight",
-		"performance",
-		"bun",
-		"nodejs",
-		"deno",
-		"browser"
-	],
-	"author": "Kyle Zhu",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/SylphxAI/cat"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.5",
@@ -61,9 +30,16 @@
 		"@vitest/coverage-v8": "^4.0.9",
 		"@vitest/ui": "^4.0.9",
 		"mitata": "^1.0.34",
+		"turbo": "^2.3.3",
 		"typescript": "^5.9.3",
 		"vitepress": "^1.6.4",
 		"vitest": "^4.0.9",
 		"vue": "^3.5.24"
+	},
+	"author": "Kyle Zhu",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/SylphxAI/cat"
 	}
 }
