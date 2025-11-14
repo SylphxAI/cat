@@ -30,7 +30,10 @@
 		"lint": "biome lint .",
 		"changeset": "changeset",
 		"version": "changeset version",
-		"release": "bun run build && changeset publish"
+		"release": "bun run build && changeset publish",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs"
 	},
 	"keywords": [
 		"cat",
@@ -59,6 +62,8 @@
 		"@vitest/ui": "^4.0.9",
 		"mitata": "^1.0.34",
 		"typescript": "^5.9.3",
-		"vitest": "^4.0.9"
+		"vitepress": "^1.6.4",
+		"vitest": "^4.0.9",
+		"vue": "^3.5.24"
 	}
 }

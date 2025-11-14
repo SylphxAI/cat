@@ -1,29 +1,28 @@
-# Dependencies
-node_modules/
-bun.lockb
-
-# Build outputs
-dist/
-
-# Logs
-logs/
-*.log
-
-# OS files
 .DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Testing
-coverage/
-
-# Temp
-*.tmp
 .env
 .env.local
+.idea/
+.vercel
+.vscode/
+*.log
+*.swo
+*.swp
+*.tmp
+*~
+# Build outputs
+# Dependencies
+# IDE
+# Logs
+# OS files
+# Temp
+# Testing
+# Vercel
+# VitePress
+bun.lockb
+coverage/
+dist/
+docs/.vitepress/cache
+docs/.vitepress/dist
+logs/
+node_modules/
+Thumbs.db
