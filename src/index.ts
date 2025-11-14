@@ -16,8 +16,22 @@ export { LOG_LEVELS } from "./core/types"
 export { JsonFormatter, jsonFormatter } from "./formatters/json"
 export type { PrettyFormatterOptions } from "./formatters/pretty"
 export { PrettyFormatter, prettyFormatter } from "./formatters/pretty"
-export type { ContextPluginOptions } from "./plugins/context"
+
+// Serializers
+export type { SerializedError, Serializer, SerializerRegistry } from "./serializers/index"
+export {
+	applySerializers,
+	autoSerializeErrors,
+	formatError,
+	isError,
+	requestSerializer,
+	responseSerializer,
+	serializeError,
+	stdSerializers,
+} from "./serializers/index"
+
 // Plugins
+export type { ContextPluginOptions } from "./plugins/context"
 export { ContextPlugin, contextPlugin } from "./plugins/context"
 export type { SamplingPluginOptions } from "./plugins/sampling"
 export { SamplingPlugin, samplingPlugin } from "./plugins/sampling"
