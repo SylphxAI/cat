@@ -1,0 +1,21 @@
+bun test v1.3.1 (89fa0f34)
+
+packages\cat\src\transports\__tests__\console.test.ts:
+formatted trace
+formatted debug
+formatted info
+formatted warn
+formatted error
+formatted fatal
+{"level":"info","msg":"original message","time":1763375600391,"data":{"key":"value"}}
+formatted trace
+formatted debug
+formatted info
+formatted warn
+formatted error
+formatted fatal
+
+ 127 pass
+ 0 fail
+ 245 expect() calls
+Ran 127 tests across 8 files. [178.00ms]
