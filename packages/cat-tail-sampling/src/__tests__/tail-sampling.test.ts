@@ -279,7 +279,7 @@ describe("Tail Sampling Plugin", () => {
 			})
 
 			expect(onFlush).toHaveBeenCalledTimes(1)
-			const [trace, kept] = onFlush.mock.calls[0]
+			const [trace, kept] = onFlush.mock.calls[0] as unknown as [any, boolean]
 
 			expect(trace.metadata.hasError).toBe(true)
 			expect(kept).toBe(true) // Errors should always be kept
@@ -312,7 +312,7 @@ describe("Tail Sampling Plugin", () => {
 			})
 
 			expect(onFlush).toHaveBeenCalledTimes(1)
-			const [, kept] = onFlush.mock.calls[0]
+			const [, kept] = onFlush.mock.calls[0] as unknown as [any, boolean]
 			expect(kept).toBe(true)
 
 			plugin.onDestroy()
@@ -343,7 +343,7 @@ describe("Tail Sampling Plugin", () => {
 			})
 
 			expect(onFlush).toHaveBeenCalledTimes(1)
-			const [, kept] = onFlush.mock.calls[0]
+			const [, kept] = onFlush.mock.calls[0] as unknown as [any, boolean]
 			expect(kept).toBe(false)
 
 			plugin.onDestroy()
@@ -379,7 +379,7 @@ describe("Tail Sampling Plugin", () => {
 				traceId: "trace-123",
 			})
 
-			const [, kept] = onFlush.mock.calls[0]
+			const [, kept] = onFlush.mock.calls[0] as unknown as [any, boolean]
 			expect(kept).toBe(true) // High priority rule should win
 
 			plugin.onDestroy()
@@ -410,7 +410,7 @@ describe("Tail Sampling Plugin", () => {
 				data: { statusCode: 500 },
 			})
 
-			const [trace, kept] = onFlush.mock.calls[0]
+			const [trace, kept] = onFlush.mock.calls[0] as unknown as [any, boolean]
 			expect(trace.metadata.statusCode).toBe(500)
 			expect(kept).toBe(true)
 
@@ -488,7 +488,7 @@ describe("Tail Sampling Plugin", () => {
 			})
 
 			expect(onFlush).toHaveBeenCalledTimes(1)
-			const [trace] = onFlush.mock.calls[0]
+			const [trace] = onFlush.mock.calls[0] as unknown as [any]
 			expect(trace.traceId).toBe("custom-123")
 
 			plugin.onDestroy()
@@ -533,7 +533,7 @@ describe("Tail Sampling Plugin", () => {
 				data: { duration: 2000 }, // > 1000ms
 			})
 
-			const [trace, kept] = onFlush.mock.calls[0]
+			const [trace, kept] = onFlush.mock.calls[0] as unknown as [any, boolean]
 			expect(trace.metadata.maxDuration).toBe(2000)
 			expect(kept).toBe(true)
 

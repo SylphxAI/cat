@@ -21,7 +21,7 @@ describe("Integration Tests", () => {
 
 			expect(transport.log).toHaveBeenCalledTimes(1)
 
-			const [entry, formatted] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry, formatted] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.level).toBe("info")
 			expect(entry.message).toBe("test message")
 
@@ -45,8 +45,8 @@ describe("Integration Tests", () => {
 			expect(transport2.log).toHaveBeenCalledTimes(1)
 
 			// Both should receive same entry
-			const [entry1] = transport1.log.mock.calls[0] as [LogEntry, string]
-			const [entry2] = transport2.log.mock.calls[0] as [LogEntry, string]
+			const [entry1] = transport1.log.mock.calls[0] as unknown as [LogEntry, string]
+			const [entry2] = transport2.log.mock.calls[0] as unknown as [LogEntry, string]
 
 			expect(entry1.message).toBe("warning message")
 			expect(entry2.message).toBe("warning message")
@@ -67,7 +67,7 @@ describe("Integration Tests", () => {
 
 			userLogger.info("user action")
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.context).toEqual({
 				service: "api",
 				requestId: "123",
@@ -120,7 +120,7 @@ describe("Integration Tests", () => {
 
 			logger.info("test")
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.data).toHaveProperty("pluginTime")
 			expect(entry.data).toHaveProperty("version", "1.0")
 		})
@@ -144,7 +144,7 @@ describe("Integration Tests", () => {
 
 			expect(transport.log).toHaveBeenCalledTimes(1)
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.level).toBe("info")
 		})
 	})
@@ -158,7 +158,7 @@ describe("Integration Tests", () => {
 			const error = new Error("test error")
 			logger.error("error occurred", { error: serializeError(error) })
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			const errorData = entry.data?.error as any
 
 			expect(errorData.type).toBe("Error")
@@ -176,7 +176,7 @@ describe("Integration Tests", () => {
 
 			logger.error("error with cause", { error: serializeError(error) })
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			const errorData = entry.data?.error as any
 
 			expect(errorData.message).toBe("main error")
@@ -280,7 +280,7 @@ describe("Integration Tests", () => {
 			expect(transport.log).toHaveBeenCalledTimes(3)
 
 			// Check final log has all context
-			const [lastEntry] = transport.log.mock.calls[2] as [LogEntry, string]
+			const [lastEntry] = transport.log.mock.calls[2] as unknown as [LogEntry, string]
 			expect(lastEntry.context).toEqual({
 				service: "web-api",
 				environment: "production",
@@ -336,7 +336,7 @@ describe("Integration Tests", () => {
 
 			logger.info("user action", complexData)
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.data).toEqual(complexData)
 		})
 	})

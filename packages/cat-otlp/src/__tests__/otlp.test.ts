@@ -77,7 +77,7 @@ describe("OTLP Transport", () => {
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
 			expect(mockFetch).toHaveBeenCalled()
-			const [url, options] = mockFetch.mock.calls[0]
+			const [url, options] = mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }]
 
 			expect(url).toBe("http://localhost:4318/v1/logs")
 			expect(options.method).toBe("POST")
@@ -119,7 +119,7 @@ describe("OTLP Transport", () => {
 			await new Promise((resolve) => setTimeout(resolve, 50))
 			expect(mockFetch).toHaveBeenCalledTimes(1)
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			expect(body.resourceLogs[0].scopeLogs[0].logRecords).toHaveLength(3)
 		})
 
@@ -170,7 +170,7 @@ describe("OTLP Transport", () => {
 				transport.log(entry, "formatted")
 				await new Promise((resolve) => setTimeout(resolve, 50))
 
-				const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+				const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 				const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 				expect(logRecord.severityNumber).toBe(number)
@@ -201,7 +201,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 			expect(logRecord.attributes).toBeDefined()
@@ -239,7 +239,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 			const serviceAttr = logRecord.attributes.find(
@@ -276,7 +276,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const attrs = body.resourceLogs[0].scopeLogs[0].logRecords[0].attributes
 
 			const stringAttr = attrs.find((a: any) => a.key === "stringValue")
@@ -316,7 +316,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 			expect(logRecord.traceId).toBe("abc123def456")
@@ -350,7 +350,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const resourceAttrs = body.resourceLogs[0].resource.attributes
 
 			expect(resourceAttrs).toHaveLength(3)
@@ -448,10 +448,10 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const [, options] = mockFetch.mock.calls[0]
-			expect(options.headers["x-api-key"]).toBe("secret-key")
-			expect(options.headers["x-custom-header"]).toBe("custom-value")
-			expect(options.headers["Content-Type"]).toBe("application/json")
+			const [, options] = mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string; headers: Record<string, string> }]
+			expect(options.headers!["x-api-key"]).toBe("secret-key")
+			expect(options.headers!["x-custom-header"]).toBe("custom-value")
+			expect(options.headers!["Content-Type"]).toBe("application/json")
 		})
 	})
 
@@ -472,7 +472,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const scope = body.resourceLogs[0].scopeLogs[0].scope
 
 			expect(scope.name).toBe("@sylphx/cat")
@@ -499,7 +499,7 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
+			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
 			const scope = body.resourceLogs[0].scopeLogs[0].scope
 
 			expect(scope.name).toBe("my-custom-logger")

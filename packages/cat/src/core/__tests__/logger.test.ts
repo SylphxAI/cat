@@ -28,7 +28,7 @@ describe("FastLogger", () => {
 			logger.info("test message")
 
 			expect(transport.log).toHaveBeenCalledTimes(1)
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.level).toBe("info")
 			expect(entry.message).toBe("test message")
 		})
@@ -69,7 +69,7 @@ describe("FastLogger", () => {
 			expect(transport.log).toHaveBeenCalledTimes(6)
 
 			const levels = transport.log.mock.calls.map(
-				([entry]: [LogEntry, string]) => entry.level,
+				(call) => (call as unknown as [LogEntry, string])[0].level,
 			)
 			expect(levels).toEqual(["trace", "debug", "info", "warn", "error", "fatal"])
 		})
@@ -102,7 +102,7 @@ describe("FastLogger", () => {
 			const data = { userId: 123, action: "login" }
 			logger.info("user action", data)
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.data).toEqual(data)
 		})
 
@@ -118,7 +118,7 @@ describe("FastLogger", () => {
 
 			logger.info("test")
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.context).toEqual(context)
 		})
 	})
@@ -136,7 +136,7 @@ describe("FastLogger", () => {
 			const childLogger = parentLogger.child({ requestId: "123" })
 			childLogger.info("request processed")
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.context).toEqual({
 				service: "api",
 				requestId: "123",
@@ -250,7 +250,7 @@ describe("FastLogger", () => {
 
 			logger.info("test", { original: true })
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.data).toEqual({
 				original: true,
 				modified: true,
@@ -362,7 +362,7 @@ describe("FastLogger", () => {
 			logger.info("test")
 			const after = Date.now()
 
-			const [entry] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [entry] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			expect(entry.timestamp).toBeGreaterThanOrEqual(before)
 			expect(entry.timestamp).toBeLessThanOrEqual(after)
 		})
@@ -375,7 +375,7 @@ describe("FastLogger", () => {
 
 			logger.info("test message", { key: "value" })
 
-			const [, formatted] = transport.log.mock.calls[0] as [LogEntry, string]
+			const [, formatted] = transport.log.mock.calls[0] as unknown as [LogEntry, string]
 			const parsed = JSON.parse(formatted)
 
 			expect(parsed.level).toBe("info")
