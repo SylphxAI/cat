@@ -35,8 +35,8 @@
     "url": "https://github.com/SylphxAI/cat",
     "directory": "packages/cat-otlp"
   },
-  "devDependencies": {
-    "@sylphx/cat": "*"
+  "dependencies": {
+    "@sylphx/cat": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

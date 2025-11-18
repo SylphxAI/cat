@@ -34,8 +34,8 @@
     "url": "https://github.com/SylphxAI/cat",
     "directory": "packages/cat-file"
   },
-  "devDependencies": {
-    "@sylphx/cat": "*"
+  "dependencies": {
+    "@sylphx/cat": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
