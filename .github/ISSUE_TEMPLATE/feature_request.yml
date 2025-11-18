@@ -1,0 +1,36 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem would this feature solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - "@sylphx/cat (core)"
+        - "@sylphx/cat-pretty"
+        - "@sylphx/cat-file"
+        - "@sylphx/cat-http"
+        - "@sylphx/cat-otlp"
+        - "@sylphx/cat-tracing"
+        - "@sylphx/cat-redaction"
+        - "@sylphx/cat-tail-sampling"
+        - "New package"
+    validations:
+      required: true
