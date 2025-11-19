@@ -342,6 +342,38 @@ const logger = createLogger({
 
 ---
 
+## ✅ Testing
+
+Cat has **comprehensive test coverage** with **330 tests** across all packages:
+
+```bash
+# Run all tests (330 tests)
+bun test
+
+# Run specific package tests
+cd packages/cat && bun test                  # Core (82 tests)
+cd packages/cat-http && bun test             # HTTP serializers (52 tests)
+cd packages/cat-tracing && bun test          # W3C Trace Context (66 tests)
+cd packages/cat-redaction && bun test        # PII redaction (33 tests)
+cd packages/cat-tail-sampling && bun test    # Tail sampling (26 tests)
+cd packages/cat-otlp && bun test             # OTLP transport (26 tests)
+```
+
+**Test Coverage: 95%+** ([See detailed report](./TEST-COVERAGE.md))
+
+- ✅ All log levels and filtering
+- ✅ Formatters (JSON, Pretty)
+- ✅ Transports (Console, File)
+- ✅ Error serialization with cause chains
+- ✅ Plugin lifecycle (onInit, onLog, onDestroy)
+- ✅ HTTP serialization with security
+- ✅ Distributed tracing (W3C standard)
+- ✅ PII protection (OWASP 2024 compliant)
+- ✅ Intelligent sampling
+- ✅ Real-world integration scenarios
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](./docs/guide/contributing.md) for details.
@@ -357,7 +389,7 @@ bun install
 # Build all packages
 bun run build
 
-# Run tests
+# Run tests (330 tests, 95%+ coverage)
 bun test
 ```
 

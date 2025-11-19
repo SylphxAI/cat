@@ -1,0 +1,78 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the sections below.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug
+      placeholder: What happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Install @sylphx/cat
+        2. Create logger with...
+        3. Call logger.info()
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+      placeholder: The logger should...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      description: Which package has the issue?
+      options:
+        - "@sylphx/cat (core)"
+        - "@sylphx/cat-pretty"
+        - "@sylphx/cat-file"
+        - "@sylphx/cat-http"
+        - "@sylphx/cat-otlp"
+        - "@sylphx/cat-tracing"
+        - "@sylphx/cat-redaction"
+        - "@sylphx/cat-tail-sampling"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: e.g., 0.2.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Bun
+        - Node.js
+        - Deno
+        - Browser
+        - Other
+    validations:
+      required: true

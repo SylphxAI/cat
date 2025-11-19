@@ -7,11 +7,41 @@ export default defineConfig({
   ignoreDeadLinks: true,
 
   head: [
+    // Favicons
     ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
+
+    // Theme
     ['meta', { name: 'theme-color', content: '#646cff' }],
-    ['meta', { name: 'og:type', content: 'website' }],
-    ['meta', { name: 'og:locale', content: 'en' }],
-    ['meta', { name: 'og:site_name', content: '@sylphx/cat' }],
+
+    // Primary Meta Tags
+    ['meta', { name: 'title', content: '@sylphx/cat - Ultra-fast, lightweight logger for JavaScript' }],
+    ['meta', { name: 'description', content: 'The fastest, lightest, and most extensible logger for all JavaScript runtimes. 82% smaller than Pino, zero dependencies, full TypeScript support.' }],
+    ['meta', { name: 'keywords', content: 'logger, logging, javascript, typescript, bun, nodejs, pino, winston, opentelemetry, w3c-trace-context, observability' }],
+    ['meta', { name: 'author', content: 'Kyle Zhu, SylphX' }],
+
+    // Open Graph / Facebook
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://cat.sylphx.com/' }],
+    ['meta', { property: 'og:title', content: '@sylphx/cat - Ultra-fast, lightweight logger for JavaScript' }],
+    ['meta', { property: 'og:description', content: 'The fastest, lightest, and most extensible logger for all JavaScript runtimes. 82% smaller than Pino, zero dependencies, full TypeScript support.' }],
+    ['meta', { property: 'og:image', content: 'https://cat.sylphx.com/og-image.png' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { property: 'og:site_name', content: '@sylphx/cat' }],
+    ['meta', { property: 'og:locale', content: 'en' }],
+
+    // Twitter
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:url', content: 'https://cat.sylphx.com/' }],
+    ['meta', { name: 'twitter:title', content: '@sylphx/cat - Ultra-fast, lightweight logger for JavaScript' }],
+    ['meta', { name: 'twitter:description', content: 'The fastest, lightest, and most extensible logger for all JavaScript runtimes. 82% smaller than Pino, zero dependencies, full TypeScript support.' }],
+    ['meta', { name: 'twitter:image', content: 'https://cat.sylphx.com/og-image.png' }],
+
+    // Canonical
+    ['link', { rel: 'canonical', href: 'https://cat.sylphx.com/' }],
   ],
 
   themeConfig: {
