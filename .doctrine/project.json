@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/cat",
+    "name": "SylphxAI Cat",
+    "lifecycle": "active",
+    "layer": "foundation",
+    "summary": "TypeScript/Bun monorepo for the @sylphx/cat logging and observability package ecosystem.",
+    "goals": [
+      "Provide the modular @sylphx/cat logger core and companion observability packages.",
+      "Own package-level logging, formatting, transport, serialization, redaction, tracing, OTLP export, and tail-sampling behavior.",
+      "Maintain package docs, examples, benchmarks, tests, and the Cat documentation site."
+    ],
+    "nonGoals": [
+      "Own application-specific log schemas, retention policy, alert policy, or telemetry backend operations.",
+      "Own OpenTelemetry collectors, external vendors, or product runtime observability dashboards.",
+      "Own enterprise engineering doctrine, standards, or project manifest schema."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "cat-package-ecosystem",
+        "description": "The core logger package plus companion packages for pretty output, file/http transports, OTLP, tracing, redaction, and tail sampling."
+      },
+      {
+        "name": "cat-docs-examples-benchmarks",
+        "description": "Repository docs, examples, benchmarks, API references, and package-level tests for the Cat ecosystem."
+      }
+    ],
+    "doesNotOwn": [
+      "Application-specific logging policy, telemetry backend configuration, secrets, retention, alerts, or dashboards.",
+      "OpenTelemetry collector infrastructure, external observability vendors, or consuming service deployment policy.",
+      "Enterprise doctrine and manifest schema owned by SylphxAI/doctrine."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "documentation",
+        "name": "Repository README",
+        "location": "README.md"
+      },
+      {
+        "type": "manifest",
+        "name": "Root package manifest and scripts",
+        "location": "package.json"
+      },
+      {
+        "type": "package",
+        "name": "@sylphx/cat",
+        "location": "packages/cat/"
+      },
+      {
+        "type": "package",
+        "name": "Cat companion packages",
+        "location": "packages/cat-*/"
+      },
+      {
+        "type": "documentation",
+        "name": "Documentation site",
+        "location": "docs/"
+      },
+      {
+        "type": "test",
+        "name": "Package tests and benchmarks",
+        "location": "packages/*/src/__tests__/ and benchmarks/"
+      },
+      {
+        "type": "workflow",
+        "name": "CI and release workflows",
+        "location": ".github/workflows/"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "project manifest schema and engineering doctrine",
+        "direction": "peer-public"
+      },
+      {
+        "repo": "SylphxAI/.github",
+        "surface": "reusable release workflow",
+        "direction": "upstream-shared"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not encode a consuming application's log taxonomy, alerting policy, or telemetry vendor configuration into Cat core packages.",
+      "Do not make Cat depend on product-specific runtime services or dashboards.",
+      "Do not fork doctrine standards into this repository."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "docs/guide/",
+      "status": "present"
+    },
+    "catalog": {
+      "path": ".doctrine/project.json",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "docs/guide/troubleshooting.md",
+      "status": "present"
+    },
+    "generatedReferences": {
+      "path": "docs/api/",
+      "status": "present"
+    }
+  },
+  "delivery": {
+    "ciModel": "legacy-ci",
+    "requiredContexts": [],
+    "deployPath": "Pull requests and merge queue run Bun/Turborepo CI; main-branch Release delegates to SylphxAI/.github reusable release workflow for package publication.",
+    "productionProof": "Passing bun run check, tests, build, relevant benchmarks for behavior changes, successful release workflow, and package-registry/readme readback for published versions.",
+    "recoveryClass": "forward-fix-only"
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "required-contexts-not-recorded",
+        "description": "CI exists for pull requests and merge queue, but required branch protection contexts are not recorded in this manifest baseline.",
+        "owner": "SylphxAI/cat",
+        "target": "central ADR-29 required-context rollout or repo-local branch protection audit"
+      },
+      {
+        "id": "benchmark-claim-freshness",
+        "description": "README includes performance and bundle-size claims; keep benchmark and generated-doc freshness gated before treating the claims as production proof.",
+        "owner": "SylphxAI/cat",
+        "target": "next package performance or docs release"
+      },
+      {
+        "id": "release-runbook-missing",
+        "description": "Package publication is forward-only once published; add a runbook for failed publishes, bad package versions, and registry recovery.",
+        "owner": "SylphxAI/cat",
+        "target": "before production lifecycle promotion"
+      }
+    ]
+  }
+}
