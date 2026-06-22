@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/cat",
+    "name": "Cat",
+    "lifecycle": "production",
+    "layer": "foundation",
+    "summary": "Cat is a production JavaScript/TypeScript logging and observability package monorepo with core logger and companion transport, tracing, redaction, and sampling packages.",
+    "goals": [
+      "Own the Cat package APIs, TypeScript types, runtime implementations, documentation, tests, and package release workflow.",
+      "Keep logging, redaction, tracing, OTLP, sampling, and transport behavior stable and explicitly versioned.",
+      "Publish packages only through the documented release workflow with CI and npm readback evidence."
+    ],
+    "nonGoals": [
+      "Own downstream applications' observability policy, retention policy, vendor backends, or compliance decisions.",
+      "Encode customer-specific logging behavior into the package core.",
+      "Treat source revert as complete recovery after npm packages are published."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "logger-package-ecosystem",
+        "description": "The @sylphx/cat core logger and companion package APIs, TypeScript types, runtime implementations, tests, and docs."
+      },
+      {
+        "name": "observability-extensions",
+        "description": "Pretty formatting, file/http transports, OTLP export, W3C trace context, redaction, and tail-sampling behavior."
+      }
+    ],
+    "doesNotOwn": [
+      "Downstream applications' observability policy, retention policy, vendor backends, or compliance decisions.",
+      "Customer-specific logging behavior outside documented package APIs.",
+      "Enterprise doctrine or org-wide release/ruleset ownership."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "package-export",
+        "name": "Cat npm packages",
+        "location": "packages/*/package.json"
+      },
+      {
+        "type": "documentation",
+        "name": "Cat documentation site sources",
+        "location": "docs/"
+      },
+      {
+        "type": "workflow",
+        "name": "Reusable release workflow caller",
+        "location": ".github/workflows/release.yml"
+      },
+      {
+        "type": "status-context",
+        "name": "Required branch context",
+        "location": "test"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "enterprise engineering doctrine",
+        "direction": "downward"
+      },
+      {
+        "repo": "SylphxAI/.github",
+        "surface": "reusable release workflow",
+        "direction": "downward"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not add application-specific logging behavior to package core without a documented option or plugin API.",
+      "Do not publish packages without release intent, required CI, and npm readback proof.",
+      "Do not rely on source revert for already-published npm versions."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "docs/",
+      "status": "present"
+    },
+    "catalog": {
+      "path": "PROJECT.md",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "docs/guide/contributing.md",
+      "status": "present"
+    },
+    "generatedReferences": {
+      "path": "packages/*/dist/",
+      "status": "generated"
+    }
+  },
+  "delivery": {
+    "ciModel": "legacy-ci",
+    "requiredContexts": [
+      "test"
+    ],
+    "deployPath": "Release workflow delegates to SylphxAI/.github reusable release workflow with inherited secrets.",
+    "productionProof": "Required CI context, Changesets/version evidence, npm package readback for every released package, and documentation build evidence.",
+    "recoveryClass": "forward-fix-only",
+    "packageRelease": {
+      "publishesPackages": true,
+      "ecosystems": [
+        "npm",
+        "changesets"
+      ],
+      "releaseIntent": "Changesets capture package release intent and the release workflow publishes changed packages.",
+      "versionPr": "Version PR and package changelog updates are produced by the central reusable release workflow.",
+      "publisher": "SylphxAI/.github reusable release workflow with inherited repository secrets.",
+      "requiredContexts": [
+        "test"
+      ],
+      "publishProof": "npm package readback for @sylphx/cat and companion packages plus changelog/version evidence."
+    }
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "central-admission",
+        "description": "CI is repo-local legacy GitHub Actions; migrate to central admission or stable status fan-in when the fleet workflow is ready.",
+        "owner": "SylphxAI/cat",
+        "target": "before full doctrine adoption"
+      },
+      {
+        "id": "release-evidence",
+        "description": "Make package publish readback and documentation publish proof first-class release evidence in the reusable workflow output.",
+        "owner": "SylphxAI/cat",
+        "target": "before claiming full package-release adoption"
+      }
+    ]
+  }
+}
