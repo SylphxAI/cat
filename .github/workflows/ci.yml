@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: [self-hosted, sylphx, linux, standard]
+    runs-on: sylphx-linux-standard
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4

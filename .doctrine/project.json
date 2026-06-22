@@ -1,0 +1,152 @@
+{
+	"$schema": "https://github.com/SylphxAI/doctrine/schemas/project-manifest.schema.json",
+	"schemaVersion": 1,
+	"project": {
+		"repo": "SylphxAI/cat",
+		"name": "Cat",
+		"lifecycle": "production",
+		"layer": "foundation",
+		"summary": "TypeScript logging and observability package ecosystem for lightweight structured logging, transports, formatting, tracing, redaction, and sampling.",
+		"goals": [
+			"Own the public @sylphx/cat package family, including logger APIs, formatters, transports, serializers, tracing, redaction, OTLP export, and tail-sampling behavior.",
+			"Maintain TypeScript source, package boundaries, tests, benchmarks, documentation, examples, bundle-size expectations, and npm release readiness for the Cat ecosystem.",
+			"Keep the logging surface portable across supported JavaScript runtimes without introducing product-specific application behavior."
+		],
+		"nonGoals": [
+			"Own Sylphx Platform observability infrastructure, metrics storage, tracing backends, billing, deployment, or runner policy.",
+			"Own application-specific log schemas, event taxonomies, retention policy, customer data policy, or product analytics decisions.",
+			"Own organization-wide release automation semantics outside the Cat package release workflow."
+		]
+	},
+	"boundaries": {
+		"owns": [
+			{
+				"name": "cat-core-logger",
+				"description": "The core logger API, structured log record model, JSON formatting, console transport, and error serialization behavior."
+			},
+			{
+				"name": "cat-extension-packages",
+				"description": "Optional packages for pretty formatting, file/http transports, OTLP export, trace context, redaction, and tail-based sampling."
+			},
+			{
+				"name": "cat-package-docs-and-benchmarks",
+				"description": "Docs, examples, benchmark claims, package READMEs, and package-specific release notes for the Cat ecosystem."
+			}
+		],
+		"doesNotOwn": [
+			"Central observability infrastructure, log ingestion services, alerting products, platform SLO policy, or customer-specific logging configuration.",
+			"Reusable release tooling such as SylphxAI/bump, organization-wide Changesets policy, or GitHub runner fleet configuration.",
+			"Downstream application behavior that consumes Cat as a logging dependency."
+		],
+		"publicSurfaces": [
+			{
+				"type": "package-export",
+				"name": "@sylphx/cat package exports",
+				"location": "packages/cat/src/"
+			},
+			{
+				"type": "package-export",
+				"name": "Cat extension package exports",
+				"location": "packages/cat-*/src/"
+			},
+			{
+				"type": "documentation",
+				"name": "Cat documentation and examples",
+				"location": "README.md and docs/"
+			},
+			{
+				"type": "manifest",
+				"name": "Changesets release intent",
+				"location": ".changeset/"
+			},
+			{
+				"type": "workflow",
+				"name": "CI and release workflows",
+				"location": ".github/workflows/"
+			}
+		],
+		"allowedDependencies": [
+			{
+				"repo": "SylphxAI/.github",
+				"surface": "shared package release workflow invoked from .github/workflows/release.yml",
+				"direction": "peer-public"
+			},
+			{
+				"repo": "SylphxAI/doctrine",
+				"surface": "project manifest schema, runner policy, CI admission doctrine, and agent execution standards",
+				"direction": "peer-public"
+			}
+		],
+		"forbiddenCouplings": [
+			"Do not encode downstream application-specific logging schemas, retention rules, billing semantics, or customer policy into Cat packages.",
+			"Do not make Cat depend on Sylphx Platform runtime services, deployment topology, or proprietary observability backends.",
+			"Do not change reusable release governance from this repo; package release policy belongs in the central doctrine or shared release tooling."
+		]
+	},
+	"documentation": {
+		"adr": {
+			"path": "docs/adr/",
+			"status": "planned"
+		},
+		"specs": {
+			"path": "README.md and docs/",
+			"status": "present"
+		},
+		"catalog": {
+			"path": ".doctrine/project.json",
+			"status": "present"
+		},
+		"runbooks": {
+			"path": "docs/guide/",
+			"status": "present"
+		},
+		"generatedReferences": {
+			"path": "packages/*/dist/",
+			"status": "generated"
+		}
+	},
+	"delivery": {
+		"ciModel": "legacy-ci",
+		"requiredContexts": ["test"],
+		"deployPath": "Pull requests and merge groups run the repository CI workflow. Main releases use .github/workflows/release.yml, which delegates package publication to the shared SylphxAI/.github release workflow.",
+		"productionProof": "Package-impacting work must prove CI, affected package tests, build output, Changesets release intent when publishing, and npm package/version readback after release.",
+		"recoveryClass": "source-revertable",
+		"packageRelease": {
+			"publishesPackages": true,
+			"ecosystems": ["npm"],
+			"releaseIntent": "Changesets files in .changeset/ declare package-level release intent and changelog content.",
+			"versionPr": "Changesets versioning prepares package version and changelog updates before publication.",
+			"publisher": "The Release workflow delegates to SylphxAI/.github/.github/workflows/release.yml@main with inherited secrets.",
+			"requiredContexts": ["test"],
+			"publishProof": "Release proof is the shared release workflow conclusion plus npm version readback for every affected @sylphx/cat package."
+		}
+	},
+	"commercial": {
+		"status": "not-applicable",
+		"decisionHome": "README.md and future ADRs for material packaging or positioning changes.",
+		"pricingSourceOfTruth": "No product pricing source of truth; Cat is an open-source package ecosystem.",
+		"metricsSourceOfTruth": "npm package downloads, benchmark reports, CI results, and downstream issue reports.",
+		"requiredRecords": ["none"],
+		"guardrails": [
+			"Do not introduce pricing, packaging, or commercial positioning changes without ADR-backed market and usage evidence.",
+			"Benchmark and size claims must remain reproducible from repository tests or documented benchmark commands."
+		]
+	},
+	"adoption": {
+		"status": "baseline",
+		"gaps": [
+			{
+				"id": "adr29-admission",
+				"description": "Cat uses repo-local legacy CI contexts rather than central ADR-29 admission contexts.",
+				"owner": "SylphxAI/cat",
+				"target": "Adopt central admission workflow when the shared package template is available."
+			},
+			{
+				"id": "package-release-policy",
+				"description": "Cat currently uses Changesets through the shared release workflow; future doctrine should state the standard package-release path and bot ownership explicitly.",
+				"owner": "SylphxAI/doctrine",
+				"target": "Package release doctrine ADR and shared workflow catalog."
+			}
+		]
+	}
+}
