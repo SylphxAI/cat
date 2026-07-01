@@ -1,5 +1,5 @@
-import { describe, expect, it, mock } from "bun:test"
-import { serializeResponse, responseSerializer } from "../response"
+import { describe, expect, it } from "bun:test"
+import { responseSerializer, serializeResponse } from "../response"
 
 describe("HTTP Response Serializer", () => {
 	describe("serializeResponse", () => {

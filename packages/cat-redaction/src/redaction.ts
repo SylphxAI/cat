@@ -67,7 +67,8 @@ export interface RedactionPluginOptions {
  */
 const PII_PATTERNS = {
 	// Credit card (Luhn algorithm compatible)
-	creditCard: /\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b/g,
+	creditCard:
+		/\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b/g,
 
 	// SSN (Social Security Number)
 	ssn: /\b\d{3}-\d{2}-\d{4}\b/g,
@@ -289,16 +290,18 @@ export class RedactionPlugin implements Plugin {
 	 * OWASP recommendation: escape or remove newlines, CR, ANSI codes
 	 */
 	private sanitizeForLogInjection(str: string): string {
+		const ansiEscapePattern = new RegExp("\\x1b\\[[0-9;]*m", "g")
+		const controlCharacterPattern = new RegExp("[\\x00-\\x08\\x0B-\\x0C\\x0E-\\x1F\\x7F]", "g")
 		return (
 			str
 				// Remove ANSI escape codes
-				.replace(/\x1b\[[0-9;]*m/g, "")
+				.replace(ansiEscapePattern, "")
 				// Replace newlines with escaped version
 				.replace(/\r\n/g, "\\r\\n")
 				.replace(/\n/g, "\\n")
 				.replace(/\r/g, "\\r")
 				// Remove other control characters
-				.replace(/[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F]/g, "")
+				.replace(controlCharacterPattern, "")
 		)
 	}
 }

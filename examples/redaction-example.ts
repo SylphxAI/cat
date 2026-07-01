@@ -14,8 +14,8 @@
 
 import { createLogger } from "../src/core/logger"
 import { prettyFormatter } from "../src/formatters/pretty"
-import { consoleTransport } from "../src/transports/console"
 import { redactionPlugin } from "../src/plugins/redaction"
+import { consoleTransport } from "../src/transports/console"
 
 // Example 1: Basic field redaction
 const basicLogger = createLogger({
@@ -293,7 +293,7 @@ environmentLogger.info("Debug info", {
 })
 
 // Example 11: Working with HTTP request/response
-import { requestSerializer, responseSerializer } from "../src/serializers/index"
+import { requestSerializer } from "../src/serializers/index"
 
 const httpLogger = createLogger({
 	formatter: prettyFormatter(),
@@ -330,7 +330,7 @@ httpLogger.info("HTTP request", {
 })
 
 // Example 12: Performance optimization - disable for development
-const devLogger = createLogger({
+const _devLogger = createLogger({
 	formatter: prettyFormatter(),
 	transports: [consoleTransport()],
 	plugins: [

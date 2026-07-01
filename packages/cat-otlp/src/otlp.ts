@@ -8,7 +8,6 @@
  */
 
 import type { LogEntry, Transport } from "@sylphx/cat"
-import { LOG_LEVELS } from "@sylphx/cat"
 
 export interface OTLPTransportOptions {
 	/**
@@ -303,7 +302,7 @@ export class OTLPTransport implements Transport {
 		} catch (error) {
 			// Retry with exponential backoff
 			if (attempt < this.retries) {
-				const delay = Math.pow(2, attempt) * 1000
+				const delay = 2 ** attempt * 1000
 				await new Promise((resolve) => setTimeout(resolve, delay))
 				return this.send(records, attempt + 1)
 			}

@@ -1,11 +1,11 @@
-import { describe, expect, it, mock, beforeEach, afterEach } from "bun:test"
-import {
-	TailSamplingPlugin,
-	tailSamplingPlugin,
-	TraceBuffer,
-	type SamplingRule,
-} from "../tail-sampling"
+import { describe, expect, it, mock } from "bun:test"
 import type { LogEntry } from "@sylphx/cat"
+import {
+	type SamplingRule,
+	TailSamplingPlugin,
+	TraceBuffer,
+	tailSamplingPlugin,
+} from "../tail-sampling"
 
 describe("Tail Sampling Plugin", () => {
 	describe("tailSamplingPlugin factory", () => {
@@ -542,7 +542,7 @@ describe("Tail Sampling Plugin", () => {
 
 		it("should sample warnings at lower rate", () => {
 			const results: boolean[] = []
-			const onFlush = mock((trace, kept) => {
+			const onFlush = mock((_trace, kept) => {
 				results.push(kept)
 			})
 

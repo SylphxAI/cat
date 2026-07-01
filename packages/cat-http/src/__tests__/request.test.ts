@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test"
-import { serializeRequest, requestSerializer } from "../request"
+import { requestSerializer, serializeRequest } from "../request"
 
 describe("HTTP Request Serializer", () => {
 	describe("serializeRequest", () => {

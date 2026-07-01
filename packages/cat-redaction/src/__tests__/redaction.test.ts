@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test"
-import { RedactionPlugin, redactionPlugin } from "../redaction"
 import type { LogEntry } from "@sylphx/cat"
+import { RedactionPlugin, redactionPlugin } from "../redaction"
 
 describe("Redaction Plugin", () => {
 	describe("redactionPlugin factory", () => {

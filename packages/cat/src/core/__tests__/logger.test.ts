@@ -1,6 +1,6 @@
 import { describe, expect, it, mock } from "bun:test"
 import { createLogger, FastLogger } from "../logger"
-import type { LogEntry, Transport } from "../types"
+import type { LogEntry } from "../types"
 
 describe("FastLogger", () => {
 	describe("createLogger", () => {

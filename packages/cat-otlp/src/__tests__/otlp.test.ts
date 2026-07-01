@@ -1,6 +1,6 @@
-import { describe, expect, it, mock, beforeEach, afterEach } from "bun:test"
-import { OTLPTransport, otlpTransport } from "../otlp"
+import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test"
 import type { LogEntry } from "@sylphx/cat"
+import { OTLPTransport, otlpTransport } from "../otlp"
 
 describe("OTLP Transport", () => {
 	let originalFetch: typeof global.fetch
@@ -59,9 +59,7 @@ describe("OTLP Transport", () => {
 
 	describe("log", () => {
 		it("should convert log entry to OTLP format", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -77,7 +75,10 @@ describe("OTLP Transport", () => {
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
 			expect(mockFetch).toHaveBeenCalled()
-			const [url, options] = mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }]
+			const [url, options] = mockFetch.mock.calls[0] as unknown as [
+				string,
+				RequestInit & { body: string },
+			]
 
 			expect(url).toBe("http://localhost:4318/v1/logs")
 			expect(options.method).toBe("POST")
@@ -90,9 +91,7 @@ describe("OTLP Transport", () => {
 		})
 
 		it("should batch logs", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({
@@ -119,14 +118,14 @@ describe("OTLP Transport", () => {
 			await new Promise((resolve) => setTimeout(resolve, 50))
 			expect(mockFetch).toHaveBeenCalledTimes(1)
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			expect(body.resourceLogs[0].scopeLogs[0].logRecords).toHaveLength(3)
 		})
 
 		it("should send immediately when batch is disabled", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -155,9 +154,7 @@ describe("OTLP Transport", () => {
 
 		for (const { level, number, text } of severityTests) {
 			it(`should map ${level} to severity ${number}`, async () => {
-				const mockFetch = mock(async () =>
-					Response.json({ status: "ok" }, { status: 200 }),
-				)
+				const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 				global.fetch = mockFetch as any
 
 				const transport = new OTLPTransport({ batch: false })
@@ -170,7 +167,9 @@ describe("OTLP Transport", () => {
 				transport.log(entry, "formatted")
 				await new Promise((resolve) => setTimeout(resolve, 50))
 
-				const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+				const body = JSON.parse(
+					(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+				)
 				const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 				expect(logRecord.severityNumber).toBe(number)
@@ -181,9 +180,7 @@ describe("OTLP Transport", () => {
 
 	describe("attributes", () => {
 		it("should include data as attributes", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -201,7 +198,9 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 			expect(logRecord.attributes).toBeDefined()
@@ -213,16 +212,12 @@ describe("OTLP Transport", () => {
 			const actionAttr = logRecord.attributes.find((a: any) => a.key === "action")
 			expect(actionAttr.value.stringValue).toBe("login")
 
-			const successAttr = logRecord.attributes.find(
-				(a: any) => a.key === "success",
-			)
+			const successAttr = logRecord.attributes.find((a: any) => a.key === "success")
 			expect(successAttr.value.boolValue).toBe(true)
 		})
 
 		it("should include context as attributes", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -239,24 +234,20 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
-			const serviceAttr = logRecord.attributes.find(
-				(a: any) => a.key === "service",
-			)
+			const serviceAttr = logRecord.attributes.find((a: any) => a.key === "service")
 			expect(serviceAttr.value.stringValue).toBe("api")
 
-			const versionAttr = logRecord.attributes.find(
-				(a: any) => a.key === "version",
-			)
+			const versionAttr = logRecord.attributes.find((a: any) => a.key === "version")
 			expect(versionAttr.value.stringValue).toBe("1.0")
 		})
 
 		it("should handle different value types", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -276,7 +267,9 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const attrs = body.resourceLogs[0].scopeLogs[0].logRecords[0].attributes
 
 			const stringAttr = attrs.find((a: any) => a.key === "stringValue")
@@ -298,9 +291,7 @@ describe("OTLP Transport", () => {
 
 	describe("trace context", () => {
 		it("should include trace context when present", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -316,7 +307,9 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const logRecord = body.resourceLogs[0].scopeLogs[0].logRecords[0]
 
 			expect(logRecord.traceId).toBe("abc123def456")
@@ -327,9 +320,7 @@ describe("OTLP Transport", () => {
 
 	describe("resource attributes", () => {
 		it("should include resource attributes", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({
@@ -350,23 +341,21 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const resourceAttrs = body.resourceLogs[0].resource.attributes
 
 			expect(resourceAttrs).toHaveLength(3)
 
-			const serviceNameAttr = resourceAttrs.find(
-				(a: any) => a.key === "service.name",
-			)
+			const serviceNameAttr = resourceAttrs.find((a: any) => a.key === "service.name")
 			expect(serviceNameAttr.value.stringValue).toBe("my-service")
 		})
 	})
 
 	describe("flush", () => {
 		it("should flush pending logs", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({
@@ -400,9 +389,7 @@ describe("OTLP Transport", () => {
 
 	describe("close", () => {
 		it("should flush on close", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({
@@ -426,9 +413,7 @@ describe("OTLP Transport", () => {
 
 	describe("headers", () => {
 		it("should send custom headers", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({
@@ -448,18 +433,19 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const [, options] = mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string; headers: Record<string, string> }]
-			expect(options.headers!["x-api-key"]).toBe("secret-key")
-			expect(options.headers!["x-custom-header"]).toBe("custom-value")
-			expect(options.headers!["Content-Type"]).toBe("application/json")
+			const [, options] = mockFetch.mock.calls[0] as unknown as [
+				string,
+				RequestInit & { body: string; headers: Record<string, string> },
+			]
+			expect(options.headers?.["x-api-key"]).toBe("secret-key")
+			expect(options.headers?.["x-custom-header"]).toBe("custom-value")
+			expect(options.headers?.["Content-Type"]).toBe("application/json")
 		})
 	})
 
 	describe("scope", () => {
 		it("should use default scope name", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({ batch: false })
@@ -472,16 +458,16 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const scope = body.resourceLogs[0].scopeLogs[0].scope
 
 			expect(scope.name).toBe("@sylphx/cat")
 		})
 
 		it("should use custom scope", async () => {
-			const mockFetch = mock(async () =>
-				Response.json({ status: "ok" }, { status: 200 }),
-			)
+			const mockFetch = mock(async () => Response.json({ status: "ok" }, { status: 200 }))
 			global.fetch = mockFetch as any
 
 			const transport = new OTLPTransport({
@@ -499,7 +485,9 @@ describe("OTLP Transport", () => {
 			transport.log(entry, "formatted")
 			await new Promise((resolve) => setTimeout(resolve, 50))
 
-			const body = JSON.parse(((mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body))
+			const body = JSON.parse(
+				(mockFetch.mock.calls[0] as unknown as [string, RequestInit & { body: string }])[1].body,
+			)
 			const scope = body.resourceLogs[0].scopeLogs[0].scope
 
 			expect(scope.name).toBe("my-custom-logger")

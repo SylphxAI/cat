@@ -1,18 +1,18 @@
 import { describe, expect, it } from "bun:test"
 import {
-	generateTraceId,
-	generateSpanId,
-	isValidTraceId,
-	isValidSpanId,
-	parseTraceparent,
-	formatTraceparent,
-	parseTracestate,
-	formatTracestate,
 	createTraceContext,
+	formatTraceparent,
+	formatTracestate,
+	generateSpanId,
+	generateTraceId,
 	isSampled,
+	isValidSpanId,
+	isValidTraceId,
+	parseTraceparent,
+	parseTracestate,
 	setSampled,
-	TraceFlags,
 	type TraceContext,
+	TraceFlags,
 } from "../tracing/context"
 
 describe("W3C Trace Context", () => {
@@ -108,7 +108,9 @@ describe("W3C Trace Context", () => {
 
 		it("should return null for wrong number of parts", () => {
 			expect(parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331")).toBeNull()
-			expect(parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01-extra")).toBeNull()
+			expect(
+				parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01-extra"),
+			).toBeNull()
 		})
 
 		it("should return null for unsupported version", () => {
@@ -128,7 +130,9 @@ describe("W3C Trace Context", () => {
 
 		it("should return null for invalid flags", () => {
 			expect(parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-1")).toBeNull()
-			expect(parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-001")).toBeNull()
+			expect(
+				parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-001"),
+			).toBeNull()
 			expect(parseTraceparent("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-xx")).toBeNull()
 		})
 
