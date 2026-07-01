@@ -4,8 +4,8 @@
  * Registry and application of custom serializers for specific data types
  */
 
-import { autoSerializeErrors, formatError, isError, serializeError } from "./error"
 import type { SerializedError } from "./error"
+import { autoSerializeErrors, formatError, isError, serializeError } from "./error"
 
 export type { SerializedError }
 export { autoSerializeErrors, formatError, isError, serializeError }

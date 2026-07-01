@@ -1,6 +1,6 @@
-import { describe, expect, it, mock, spyOn } from "bun:test"
-import { ConsoleTransport, consoleTransport } from "../console"
+import { describe, expect, it, spyOn } from "bun:test"
 import type { LogEntry } from "../../core/types"
+import { ConsoleTransport, consoleTransport } from "../console"
 
 describe("ConsoleTransport", () => {
 	describe("consoleTransport factory", () => {

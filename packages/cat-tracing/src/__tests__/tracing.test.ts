@@ -1,6 +1,6 @@
-import { describe, expect, it, beforeEach } from "bun:test"
-import { TracingPlugin, tracingPlugin } from "../tracing"
+import { describe, expect, it } from "bun:test"
 import type { LogEntry } from "@sylphx/cat"
+import { TracingPlugin, tracingPlugin } from "../tracing"
 import type { TraceContext } from "../tracing/context"
 import { TraceFlags } from "../tracing/context"
 
@@ -271,10 +271,7 @@ describe("Tracing Plugin", () => {
 
 		it("should handle array header values", () => {
 			const headers = {
-				traceparent: [
-					"00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
-					"other-value",
-				],
+				traceparent: ["00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01", "other-value"],
 			}
 
 			const context = TracingPlugin.fromHeaders(headers)
@@ -314,9 +311,7 @@ describe("Tracing Plugin", () => {
 
 			const headers = TracingPlugin.toHeaders(context)
 
-			expect(headers.traceparent).toBe(
-				"00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01",
-			)
+			expect(headers.traceparent).toBe("00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01")
 		})
 
 		it("should round-trip with fromHeaders", () => {
@@ -345,10 +340,11 @@ describe("Tracing Plugin", () => {
 			// Extract context from headers
 			const context = TracingPlugin.fromHeaders(incomingHeaders)
 			expect(context).not.toBeNull()
+			if (!context) throw new Error("expected trace context")
 
 			// Set context in plugin
 			const plugin = new TracingPlugin()
-			plugin.setTraceContext(context!)
+			plugin.setTraceContext(context)
 
 			// Log entry should have trace context
 			const entry: LogEntry = {
@@ -373,19 +369,18 @@ describe("Tracing Plugin", () => {
 				timestamp: Date.now(),
 			}
 
-			const enhanced = plugin.onLog(entry)
+			const _enhanced = plugin.onLog(entry)
 
 			// Get current context
 			const context = plugin.getContext()
 			expect(context).not.toBeNull()
+			if (!context) throw new Error("expected trace context")
 
 			// Convert to headers for outgoing request
-			const outgoingHeaders = TracingPlugin.toHeaders(context!)
+			const outgoingHeaders = TracingPlugin.toHeaders(context)
 
 			expect(outgoingHeaders.traceparent).toBeDefined()
-			expect(outgoingHeaders.traceparent).toMatch(
-				/^00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}$/,
-			)
+			expect(outgoingHeaders.traceparent).toMatch(/^00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}$/)
 		})
 	})
 })

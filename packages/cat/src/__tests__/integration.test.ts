@@ -1,9 +1,8 @@
 import { describe, expect, it, mock } from "bun:test"
 import { createLogger } from "../core/logger"
-import { JsonFormatter } from "../formatters/json"
-import { ConsoleTransport } from "../transports/console"
-import { serializeError } from "../serializers/error"
 import type { LogEntry } from "../core/types"
+import { JsonFormatter } from "../formatters/json"
+import { serializeError } from "../serializers/error"
 
 describe("Integration Tests", () => {
 	describe("Logger + Formatter + Transport", () => {

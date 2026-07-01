@@ -17,8 +17,8 @@
 
 import { createLogger } from "../src/core/logger"
 import { jsonFormatter } from "../src/formatters/json"
-import { otlpTransport } from "../src/transports/otlp"
 import { tracingPlugin } from "../src/plugins/tracing"
+import { otlpTransport } from "../src/transports/otlp"
 
 // Example 1: Basic OTLP setup (local collector)
 const basicLogger = createLogger({
@@ -80,7 +80,7 @@ const multiLogger = createLogger({
 		otlpTransport({
 			endpoint: "https://logs.example.com/v1/logs",
 			headers: {
-				"X-API-Key": process.env.LOGS_API_KEY!,
+				"X-API-Key": process.env.LOGS_API_KEY ?? "example-api-key",
 			},
 			batch: true,
 			batchSize: 50,
@@ -121,7 +121,7 @@ scopedLogger.info("Service started")
 // Example 5: Handling traces from HTTP requests
 import type { IncomingMessage } from "node:http"
 
-function handleRequest(req: IncomingMessage) {
+function _handleRequest(req: IncomingMessage) {
 	// Extract trace context from incoming request
 	const traceContext = tracingPlugin.fromHeaders(req.headers as any)
 

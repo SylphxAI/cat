@@ -1,9 +1,9 @@
-import { describe, expect, it, beforeEach, afterEach } from "bun:test"
-import { FileTransport, fileTransport } from "../file"
-import type { LogEntry } from "@sylphx/cat"
-import { existsSync, unlinkSync, readFileSync } from "node:fs"
+import { afterEach, beforeEach, describe, expect, it } from "bun:test"
+import { existsSync, readFileSync, unlinkSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
+import type { LogEntry } from "@sylphx/cat"
+import { FileTransport, fileTransport } from "../file"
 
 describe("FileTransport", () => {
 	const tempDir = tmpdir()
@@ -127,9 +127,7 @@ describe("FileTransport", () => {
 			transport.log(entry, "pending log")
 
 			// File might not exist yet
-			const beforeFlush = existsSync(testFilePath)
-				? readFileSync(testFilePath, "utf-8")
-				: ""
+			const beforeFlush = existsSync(testFilePath) ? readFileSync(testFilePath, "utf-8") : ""
 
 			await transport.flush()
 

@@ -51,7 +51,7 @@ export function serializeError(error: Error, maxDepth = 10): SerializedError {
 	// Use try-catch to handle circular references
 	try {
 		for (const key in error) {
-			if (Object.prototype.hasOwnProperty.call(error, key)) {
+			if (Object.hasOwn(error, key)) {
 				// Skip standard properties
 				if (["name", "message", "stack", "cause", "code"].includes(key)) {
 					continue
@@ -77,7 +77,7 @@ export function serializeError(error: Error, maxDepth = 10): SerializedError {
 				}
 			}
 		}
-	} catch (e) {
+	} catch (_e) {
 		// If we hit any error (like circular reference), just skip remaining properties
 	}
 

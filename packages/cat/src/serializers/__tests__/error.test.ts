@@ -3,8 +3,8 @@ import {
 	autoSerializeErrors,
 	formatError,
 	isError,
-	serializeError,
 	type SerializedError,
+	serializeError,
 } from "../error"
 
 describe("Error Serializers", () => {

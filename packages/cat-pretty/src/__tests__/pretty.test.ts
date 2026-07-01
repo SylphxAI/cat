@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test"
-import { PrettyFormatter, prettyFormatter } from "../pretty"
 import type { LogEntry } from "@sylphx/cat"
+import { PrettyFormatter, prettyFormatter } from "../pretty"
 
 describe("PrettyFormatter", () => {
 	describe("prettyFormatter factory", () => {

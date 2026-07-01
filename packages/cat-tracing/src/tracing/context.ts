@@ -216,6 +216,8 @@ export function isSampled(context: TraceContext): boolean {
 export function setSampled(context: TraceContext, sampled: boolean): TraceContext {
 	return {
 		...context,
-		traceFlags: sampled ? context.traceFlags | TraceFlags.SAMPLED : context.traceFlags & ~TraceFlags.SAMPLED,
+		traceFlags: sampled
+			? context.traceFlags | TraceFlags.SAMPLED
+			: context.traceFlags & ~TraceFlags.SAMPLED,
 	}
 }

@@ -14,10 +14,6 @@ export { LOG_LEVELS } from "./core/types"
 
 // Formatters
 export { JsonFormatter, jsonFormatter } from "./formatters/json"
-
-// Transports
-export { ConsoleTransport, consoleTransport } from "./transports/console"
-
 // Serializers
 export type { SerializedError, Serializer, SerializerRegistry } from "./serializers/index"
 export {
@@ -28,3 +24,5 @@ export {
 	serializeError,
 	stdSerializers,
 } from "./serializers/index"
+// Transports
+export { ConsoleTransport, consoleTransport } from "./transports/console"

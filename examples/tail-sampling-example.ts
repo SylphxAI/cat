@@ -13,9 +13,9 @@
 
 import { createLogger } from "../src/core/logger"
 import { jsonFormatter } from "../src/formatters/json"
-import { consoleTransport } from "../src/transports/console"
+import { type SamplingRule, tailSamplingPlugin } from "../src/plugins/tail-sampling"
 import { tracingPlugin } from "../src/plugins/tracing"
-import { tailSamplingPlugin, type SamplingRule } from "../src/plugins/tail-sampling"
+import { consoleTransport } from "../src/transports/console"
 
 // ============================================================================
 // Example 1: Basic Tail-Based Sampling
@@ -169,7 +169,7 @@ console.log("=== Example 4: Distributed Tracing ===\n")
 
 // Simulate microservices architecture
 function simulateDistributedTrace() {
-	const traceId = "trace-" + Math.random().toString(36).slice(2)
+	const traceId = `trace-${Math.random().toString(36).slice(2)}`
 
 	const gatewayLogger = createLogger({
 		formatter: jsonFormatter(),
@@ -478,12 +478,12 @@ console.log("\n")
 
 console.log("=== Example 8: Cost Comparison ===\n")
 
-function simulateTraffic(logger: any, count: number) {
+function simulateTraffic(_logger: any, count: number) {
 	let kept = 0
 	let discarded = 0
 
 	const plugin = tailSamplingPlugin({
-		onFlush: (trace, isKept) => {
+		onFlush: (_trace, isKept) => {
 			if (isKept) kept++
 			else discarded++
 		},
@@ -503,7 +503,7 @@ function simulateTraffic(logger: any, count: number) {
 			},
 		}
 
-		plugin.onLog!(entry)
+		plugin.onLog?.(entry)
 		plugin.flush(`trace-${i}`)
 	}
 
@@ -514,7 +514,9 @@ const results = simulateTraffic(null, 10000)
 
 console.log("Simulated 10,000 requests (1% error rate):")
 console.log(`- Kept: ${results.kept} (${((results.kept / 10000) * 100).toFixed(2)}%)`)
-console.log(`- Discarded: ${results.discarded} (${((results.discarded / 10000) * 100).toFixed(2)}%)`)
+console.log(
+	`- Discarded: ${results.discarded} (${((results.discarded / 10000) * 100).toFixed(2)}%)`,
+)
 console.log(`- Cost savings: ~${(100 - (results.kept / 10000) * 100).toFixed(0)}%`)
 console.log("\n")
 

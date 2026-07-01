@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test"
-import { JsonFormatter, jsonFormatter } from "../json"
 import type { LogEntry } from "../../core/types"
+import { JsonFormatter, jsonFormatter } from "../json"
 
 describe("JsonFormatter", () => {
 	describe("jsonFormatter factory", () => {

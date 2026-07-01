@@ -41,10 +41,13 @@ export function applyPlugin(entry: LogEntry, plugin: Plugin): LogEntry | null {
  * Pure: Apply all plugins in sequence (functional pipeline)
  */
 export function applyPlugins(entry: LogEntry, plugins: Plugin[]): LogEntry | null {
-	return plugins.reduce((acc, plugin) => {
-		if (acc === null) return null // Plugin filtered it out
-		return applyPlugin(acc, plugin)
-	}, entry as LogEntry | null)
+	return plugins.reduce(
+		(acc, plugin) => {
+			if (acc === null) return null // Plugin filtered it out
+			return applyPlugin(acc, plugin)
+		},
+		entry as LogEntry | null,
+	)
 }
 
 /**
@@ -186,7 +189,7 @@ export function sanitizeLogMessage(message: string): string {
  */
 export function validateMessage(message: string, maxLength: number): string {
 	if (message.length > maxLength) {
-		return message.slice(0, maxLength) + "..."
+		return `${message.slice(0, maxLength)}...`
 	}
 	return message
 }
@@ -259,7 +262,7 @@ export function memoize<T, R>(fn: (arg: T) => R): (arg: T) => R {
 	const cache = new Map<T, R>()
 	return (arg: T): R => {
 		if (cache.has(arg)) {
-			return cache.get(arg)!
+			return cache.get(arg) as R
 		}
 		const result = fn(arg)
 		cache.set(arg, result)
@@ -296,7 +299,7 @@ export function createLogProcessor(
 		// Pure pipeline
 		const pipeline = pipe<LogEntry | null>(
 			(e) => (e ? { ...e, message: sanitizeLogMessage(e.message) } : null),
-			(e) => (e && e.data ? { ...e, data: applySerializers(e.data, serializers) } : e),
+			(e) => (e?.data ? { ...e, data: applySerializers(e.data, serializers) } : e),
 			(e) => (e ? applyPlugins(e, plugins) : null),
 		)
 

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "bun:test"
 import {
 	applySerializers,
-	serializeError,
-	stdSerializers,
 	type SerializedError,
 	type SerializerRegistry,
+	serializeError,
+	stdSerializers,
 } from "../index"
 
 describe("Custom Serializers", () => {
@@ -40,10 +40,7 @@ describe("Custom Serializers", () => {
 
 		it("should handle arrays with serializers", () => {
 			const data = {
-				dates: [
-					new Date("2024-01-01T00:00:00Z"),
-					new Date("2024-01-02T00:00:00Z"),
-				],
+				dates: [new Date("2024-01-01T00:00:00Z"), new Date("2024-01-02T00:00:00Z")],
 			}
 
 			const serializers: SerializerRegistry = {
@@ -52,10 +49,7 @@ describe("Custom Serializers", () => {
 
 			const result = applySerializers(data, serializers)
 
-			expect(result.dates).toEqual([
-				"2024-01-01T00:00:00.000Z",
-				"2024-01-02T00:00:00.000Z",
-			])
+			expect(result.dates).toEqual(["2024-01-01T00:00:00.000Z", "2024-01-02T00:00:00.000Z"])
 		})
 
 		it("should serialize errors in arrays", () => {
@@ -92,10 +86,7 @@ describe("Custom Serializers", () => {
 
 		it("should handle nested objects in arrays", () => {
 			const data = {
-				items: [
-					{ error: new Error("error 1") },
-					{ error: new Error("error 2") },
-				],
+				items: [{ error: new Error("error 1") }, { error: new Error("error 2") }],
 			}
 
 			const result = applySerializers(data, {})
