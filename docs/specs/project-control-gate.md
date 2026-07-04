@@ -28,9 +28,10 @@ Pull requests, merge groups, and main pushes must:
 
 - keep runtime package checks on runtime-affecting changes;
 - run the project-control boundary test;
-- run `SylphxAI/groundatlas@v0.1.2` with `package-spec: groundatlas@0.1.2`, `require-atlas: true`, and `strict: true`;
+- run `SylphxAI/groundatlas@v0.1.3` with `package-spec: groundatlas@0.1.3`, `require-atlas: true`, and `strict: true`;
 - assert that GroundAtlas selects `project.manifest.json` and keeps `.doctrine/project.json` as an adapter;
-- upload GroundAtlas reports as CI artifacts.
+- assert that the human-readable Markdown scorecard reports one adopted project with zero warnings and zero blockers;
+- upload GroundAtlas manifest JSON, fleet JSON, and fleet Markdown reports as CI artifacts.
 
 ## Release Boundary
 
