@@ -26,4 +26,4 @@ Before changing behavior, read this file, `project.manifest.json`, `.doctrine/pr
 
 ## Project Control
 
-`project.manifest.json` is the vendor-neutral GroundAtlas control file for external agents and fleet dogfooding. `.doctrine/project.json` remains the Sylphx Doctrine adapter and local governance catalog. Generated `.groundatlas*` reports are evidence and navigation only; they are not source of truth.
+`project.manifest.json` is the vendor-neutral GroundAtlas control file for external agents and fleet dogfooding. `.doctrine/project.json` remains the Sylphx Doctrine adapter and local governance catalog. Generated `.groundatlas*`, fleet JSON, and fleet Markdown reports are evidence and navigation only; they are not source of truth.
