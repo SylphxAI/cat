@@ -27,3 +27,6 @@ logs/
 node_modules/
 Thumbs.db
 .turbo
+.groundatlas/
+.groundatlas-*
+.groundatlas-pilot/

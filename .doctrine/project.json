@@ -63,6 +63,26 @@
 				"type": "workflow",
 				"name": "CI and release workflows",
 				"location": ".github/workflows/"
+			},
+			{
+				"type": "manifest",
+				"name": "Vendor-neutral project manifest",
+				"location": "project.manifest.json"
+			},
+			{
+				"type": "test",
+				"name": "Project-control boundary test",
+				"location": "test/project-control.node-test.mjs"
+			},
+			{
+				"type": "documentation",
+				"name": "Project-control gate spec",
+				"location": "docs/specs/project-control-gate.md"
+			},
+			{
+				"type": "documentation",
+				"name": "Security policy",
+				"location": "SECURITY.md"
 			}
 		],
 		"allowedDependencies": [
@@ -75,6 +95,11 @@
 				"repo": "SylphxAI/doctrine",
 				"surface": "project manifest schema, runner policy, CI admission doctrine, and agent execution standards",
 				"direction": "peer-public"
+			},
+			{
+				"repo": "SylphxAI/groundatlas",
+				"surface": "Released GroundAtlas package/action for vendor-neutral project manifest validation and fleet dogfooding.",
+				"direction": "peer-public"
 			}
 		],
 		"forbiddenCouplings": [
@@ -86,18 +111,18 @@
 	"documentation": {
 		"adr": {
 			"path": "docs/adr/",
-			"status": "planned"
+			"status": "present"
 		},
 		"specs": {
-			"path": "README.md and docs/",
+			"path": "README.md, docs/, and docs/specs/",
 			"status": "present"
 		},
 		"catalog": {
-			"path": ".doctrine/project.json",
+			"path": "PROJECT.md, project.manifest.json, and .doctrine/project.json",
 			"status": "present"
 		},
 		"runbooks": {
-			"path": "docs/guide/",
+			"path": "AGENTS.md, PROJECT.md, README.md, CONTRIBUTING.md, SECURITY.md, and docs/specs/project-control-gate.md",
 			"status": "present"
 		},
 		"generatedReferences": {
@@ -106,20 +131,21 @@
 		}
 	},
 	"delivery": {
-		"ciModel": "legacy-ci",
+		"ciModel": "legacy-ci-with-groundatlas",
 		"requiredContexts": ["test"],
-		"deployPath": "Pull requests and merge groups run the repository CI workflow. Main releases use .github/workflows/release.yml, which delegates package publication to the shared SylphxAI/.github release workflow.",
-		"productionProof": "Package-impacting work must prove CI, affected package tests, build output, Changesets release intent when publishing, and npm package/version readback after release.",
+		"deployPath": "Pull requests and merge groups run the repository CI workflow with runtime checks for runtime-affecting changes plus project-control test and GroundAtlas package dogfood. Main releases use .github/workflows/release.yml, which delegates package publication to the shared SylphxAI/.github release workflow.",
+		"productionProof": "Package-impacting work must prove CI, affected package tests, build output, Changesets release intent when publishing, GroundAtlas package dogfood, and npm package/version readback after release.",
 		"recoveryClass": "source-revertable",
 		"packageRelease": {
 			"publishesPackages": true,
 			"ecosystems": ["npm"],
 			"releaseIntent": "Changesets files in .changeset/ declare package-level release intent and changelog content.",
 			"versionPr": "Changesets versioning prepares package version and changelog updates before publication.",
-			"publisher": "The Release workflow delegates to SylphxAI/.github/.github/workflows/release.yml@main with inherited secrets.",
+			"publisher": "The Release workflow delegates to SylphxAI/.github/.github/workflows/release.yml@main with inherited secrets and caller-side id-token: write for trusted publish identity.",
 			"requiredContexts": ["test"],
-			"publishProof": "Release proof is the shared release workflow conclusion plus npm version readback for every affected @sylphx/cat package."
-		}
+			"publishProof": "Release proof is the shared release workflow conclusion plus npm registry readback for every affected @sylphx/cat package, with GroundAtlas project-control evidence preserved as CI artifact."
+		},
+		"localContexts": ["ci includes project-control boundary test and GroundAtlas package dogfood"]
 	},
 	"commercial": {
 		"status": "not-applicable",
@@ -133,7 +159,7 @@
 		]
 	},
 	"adoption": {
-		"status": "baseline",
+		"status": "adopted",
 		"gaps": [
 			{
 				"id": "adr29-admission",
@@ -146,6 +172,12 @@
 				"description": "Cat currently uses Changesets through the shared release workflow; future doctrine should state the standard package-release path and bot ownership explicitly.",
 				"owner": "SylphxAI/doctrine",
 				"target": "Package release doctrine ADR and shared workflow catalog."
+			},
+			{
+				"id": "groundatlas-fleet-ruleset",
+				"description": "Organization-wide mandatory GroundAtlas enforcement belongs in the owning fleet control plane, not this logging package repo.",
+				"owner": "SylphxAI/groundatlas",
+				"target": "fleet control-plane rollout"
 			}
 		]
 	}
