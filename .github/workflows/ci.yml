@@ -45,11 +45,11 @@ jobs:
         if: steps.changes.outputs.runtime == 'true'
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: 1.3.2
 
       - name: Install dependencies
         if: steps.changes.outputs.runtime == 'true'
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Check code quality
         if: steps.changes.outputs.runtime == 'true'
